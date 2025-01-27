@@ -107,6 +107,10 @@ body {
     margin-top: 10px;
 }
 
+.product-description {
+    font-style: italic;
+}
+
 .product-button:hover {
     background-color: #c0392b;
 }
@@ -138,6 +142,7 @@ body {
 }
 .tag a{
     text-decoration: none;
+    margin-left: 40px;
 }
 .tag {
     width: 400px;
@@ -159,6 +164,7 @@ body {
     justify-content: center;
     width: 650px;
     font-size: 19px;
+
 }
 .cart{
     color: white;
@@ -181,7 +187,11 @@ body {
 .plant_heading{
     width: 400px;
     text-align: center;
-    margin: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
     border: 1px solid rgb(5, 4, 4);
     border-left: none;
     border-right: none;
