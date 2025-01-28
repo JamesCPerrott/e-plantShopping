@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import './ProductList.css'
 import CartItem from './CartItem';
@@ -257,14 +257,32 @@ function ProductList() {
     return (cartTotal);
   };
     
-    const handleAddToCart = (index) => {
-        dispatch(addItem(index));
-      };
+    const handleAddToCart = (product) => {
+        dispatch(addItem(product));
+        setAddedToCart((prevState) => ({
+            ...prevState,
+            [product.name]: true, // Set the product name as key and value as true to indicate it's added to cart
+        }));
+    };
+
+    const updateAddedToCart = () => {
+        setAddedToCart(() => ({}));
+        cart.forEach((item) => {
+            if(item.quantity > 0){
+                setAddedToCart((prevState) =>({
+                    ...prevState,
+                    [item.name]: true,
+                }))
+            }
+        });
+    };
 
    const handleContinueShopping = (e) => {
     e.preventDefault();
     setShowCart(false);
+    updateAddedToCart();
   };
+
     return (
         <div>
              <div className="navbar" style={styleObj}>
@@ -297,7 +315,7 @@ function ProductList() {
                                 <img className="product-image" src={plant.image} alt={plant.name} />
                                 <div className="product-price">{plant.cost}</div>
                                 <div className="product-description">{plant.description}</div>
-                                <button  className="product-button" onClick={() => handleAddToCart(plant)}>Add to Cart</button>
+                                <button className={addedToCart[plant.name] ? "product-button added-to-cart" : "product-button" } onClick={() => handleAddToCart(plant)}>{addedToCart[plant.name] ? "Added" : "Add"} to Cart</button>
                             </div>
                         ))}
                     </div>
@@ -305,7 +323,7 @@ function ProductList() {
             ))}
         </div>
  ) :  (
-    <CartItem onContinueShopping={handleContinueShopping}/>
+    <CartItem onContinueShopping={handleContinueShopping}/> 
 )}
     </div>
     );

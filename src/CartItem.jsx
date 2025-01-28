@@ -4,7 +4,7 @@ import { removeItem, updateQuantity } from './CartSlice';
 import './CartItem.css';
 import { createImmutableStateInvariantMiddleware } from '@reduxjs/toolkit';
 
-const CartItem = ({ onContinueShopping }) => {
+const CartItem = ({ onContinueShopping , removedFromCart }) => {
   const cart = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
 
