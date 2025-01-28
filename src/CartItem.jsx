@@ -44,7 +44,7 @@ const CartItem = ({ onContinueShopping }) => {
 };
 
 const handleCheckoutShopping = (e) => {
-  alert('The Checkout is not available at this time.');
+  alert('Checkout is not available at this time.');
 };
 
   return (
