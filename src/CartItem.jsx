@@ -14,13 +14,12 @@ const CartItem = ({ onContinueShopping , removedFromCart }) => {
     cart.forEach((item) => {
         totalAmount += item.cost.slice(1) * item.quantity;
     });
-    return (totalAmount);
+    if(totalAmount > 0){
+        return(`Total Cart Amount: $${totalAmount}`);
+    } else{
+        return('Your Cart is Empty');
+    }
   };
-
- // const handleContinueShopping = (e) => {
- 
- // };
-//handled prop in onClick syntax
 
   const handleIncrement = (item) => {
     dispatch(updateQuantity({ name: item.name, quantity: item.quantity + 1 }));
@@ -46,12 +45,12 @@ const CartItem = ({ onContinueShopping , removedFromCart }) => {
 };
 
 const handleCheckoutShopping = (e) => {
-  alert('Functionality to be added for future reference');
+  alert('Checkout is not available right now.');
 };
 
   return (
     <div className="cart-container">
-      <h2 style={{ color: 'black' }}>Total Cart Amount: ${calculateTotalAmount()}</h2>
+      <h2 style={{ color: 'black' }}>{calculateTotalAmount()}</h2>
       <div>
         {cart.map(item => (
           <div className="cart-item" key={item.name}>
