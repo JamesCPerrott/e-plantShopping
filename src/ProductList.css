@@ -176,7 +176,13 @@ body {
     margin-left: 27px;
     position: absolute;
     font-size: 29px;
-
+}
+.cart_quantity_count_double{
+    margin-top: 16px;
+    /* background-color: red; */
+    margin-left: 18px;
+    position: absolute;
+    font-size: 29px;
 }
 .plantname_heading{
    display: flex;
