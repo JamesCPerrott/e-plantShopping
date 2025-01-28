@@ -25,34 +25,18 @@ const CartItem = ({ onContinueShopping }) => {
  // const handleContinueShopping = (e) => {
  
  // };
-
-
+//handled prop in onClick syntax
 
   const handleIncrement = (item) => {
-    const increment = item.quantity + 1;
-    const test = item;
-    console.clear();
-    console.log(item.quantity);
-    console.log(increment)
-    const incrementArray = [
-        { 
-            name: item.name,
-            quantity: increment
-        }
-    ];
-    console.log (item);
-    console.log(incrementArray);
-    console.log(test);
-    dispatch(updateQuantity(incrementArray));
+    dispatch(updateQuantity({ name: item.name, quantity: item.quantity + 1 }));
   };
 
   const handleDecrement = (item) => {
-    const newQuantity = item.quantity - 1;
-    if(newQuantity === 0){
+    if(item.quantity <= 1){
         dispatch(removeItem(item));
     }
     else{
-        dispatch(updateQuantity(item, newQuantity));
+        dispatch(updateQuantity({ name: item.name, quantity: item.quantity - 1 }));
     }
   };
 
