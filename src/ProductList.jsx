@@ -4,9 +4,8 @@ import './ProductList.css'
 import CartItem from './CartItem';
 import { addItem } from './CartSlice';
 
-function ProductList() {
+function ProductList({ aboutUsClicked }) {
     const [showCart, setShowCart] = useState(false); 
-    const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
     const [addedToCart, setAddedToCart] = useState({});
     const dispatch = useDispatch();
     const cart = useSelector(state => state.cart.items);
@@ -219,7 +218,7 @@ function ProductList() {
         }
     ];
    const styleObj={
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#1c671c',
     color: '#fff!important',
     padding: '15px',
     display: 'flex',
@@ -240,13 +239,18 @@ function ProductList() {
    }
    const handleCartClick = (e) => {
     e.preventDefault();
-    setShowCart(true); // Set showCart to true when cart icon is clicked
+    setShowCart(true); // Show the cart
+    };
+
+    const handleAboutClick = (e) =>{
+        e.preventDefault();
+        setShowCart(false); //Hide the cart
+        aboutUsClicked(); //Hide the products
     };
 
     const handlePlantsClick = (e) => {
         e.preventDefault();
-        setShowPlants(true); // Set showAboutUs to true when "About Us" link is clicked
-        setShowCart(false); // Hide the cart when navigating to About Us
+        setShowCart(false); // Hide the cart
     };
 
   const calculateCartTotal = () => {
@@ -258,11 +262,16 @@ function ProductList() {
   };
     
     const handleAddToCart = (product) => {
-        dispatch(addItem(product));
-        setAddedToCart((prevState) => ({
-            ...prevState,
-            [product.name]: true, // Set the product name as key and value as true to indicate it's added to cart
-        }));
+        if(addedToCart[product.name]){
+            return;
+        }else
+        {
+            dispatch(addItem(product));
+            setAddedToCart((prevState) => ({
+                ...prevState,
+                [product.name]: true, // Set the product name as key and value as true to indicate it's added to cart
+            }));
+        }
     };
 
     const updateAddedToCart = () => {
@@ -289,7 +298,7 @@ function ProductList() {
             <div className="tag">
                <div className="luxury">
                <img src="https://cdn.pixabay.com/photo/2020/06/17/13/51/mountain-5309606_1280.jpg" alt="" />
-               <a href="/" style={{textDecoration:'none'}}>
+               <a href="#" onClick={(e) => handleAboutClick(e)} style={{textDecoration:'none'}}>
                         <div>
                     <h3 style={{color:'white'}}>James' Mountain Greenery</h3>
                     <i style={{color:'white'}}>Where Nature Meets the Peaks</i>

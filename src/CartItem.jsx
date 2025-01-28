@@ -4,23 +4,9 @@ import { removeItem, updateQuantity } from './CartSlice';
 import './CartItem.css';
 import { createImmutableStateInvariantMiddleware } from '@reduxjs/toolkit';
 
-const CartItem = ({ onContinueShopping , removedFromCart }) => {
+const CartItem = ({ onContinueShopping }) => {
   const cart = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
-
-  // Calculate total amount for all products in the cart
-  const calculateTotalAmount = () => {
-    let totalAmount = 0;
-    cart.forEach((item) => {
-        totalAmount += item.cost.slice(1) * item.quantity;
-    });
-    return (totalAmount);
-  };
-
- // const handleContinueShopping = (e) => {
- 
- // };
-//handled prop in onClick syntax
 
   const handleIncrement = (item) => {
     dispatch(updateQuantity({ name: item.name, quantity: item.quantity + 1 }));
@@ -35,6 +21,18 @@ const CartItem = ({ onContinueShopping , removedFromCart }) => {
     }
   };
 
+  const cartMessage = () => {
+    let totalAmount = 0;
+    cart.forEach((item) => {
+        totalAmount += item.cost.slice(1) * item.quantity;
+    });
+    if(totalAmount > 0){
+        return(`Total Cart Amount: $${totalAmount}`);
+    } else{
+        return('Your Cart is Empty');
+    }
+  };
+
   const handleRemove = (index) => {
     dispatch(removeItem(index));
   };
@@ -46,12 +44,12 @@ const CartItem = ({ onContinueShopping , removedFromCart }) => {
 };
 
 const handleCheckoutShopping = (e) => {
-  alert('Functionality to be added for future reference');
+  alert('The Checkout is not available at this time.');
 };
 
   return (
     <div className="cart-container">
-      <h2 style={{ color: 'black' }}>Total Cart Amount: ${calculateTotalAmount()}</h2>
+      <h2 style={{ color: 'black' }}>{cartMessage()}</h2>
       <div>
         {cart.map(item => (
           <div className="cart-item" key={item.name}>
