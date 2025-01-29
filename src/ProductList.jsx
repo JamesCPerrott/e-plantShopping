@@ -7,7 +7,6 @@ import { addItem } from './CartSlice';
 function ProductList({ aboutUsClicked }) {
     const [showCart, setShowCart] = useState(false); 
     const [addedToCart, setAddedToCart] = useState({});
-    const [newCart, setNewCart] = useState({});
     const dispatch = useDispatch();
     const cart = useSelector(state => state.cart.items);
 
