@@ -7,6 +7,7 @@ import { addItem } from './CartSlice';
 function ProductList({ aboutUsClicked }) {
     const [showCart, setShowCart] = useState(false); 
     const [addedToCart, setAddedToCart] = useState({});
+    const [newCart, setNewCart] = useState({});
     const dispatch = useDispatch();
     const cart = useSelector(state => state.cart.items);
 
@@ -258,6 +259,7 @@ function ProductList({ aboutUsClicked }) {
     cart.forEach((item) => {
         cartTotal +=  item.quantity;
     });
+//    updateAddedToCart();
     return (cartTotal);
   };
     
@@ -274,22 +276,16 @@ function ProductList({ aboutUsClicked }) {
         }
     };
 
-    const updateAddedToCart = () => {
-        setAddedToCart(() => ({}));
-        cart.forEach((item) => {
-            if(item.quantity > 0){
-                setAddedToCart((prevState) =>({
-                    ...prevState,
-                    [item.name]: true,
-                }))
-            }
-        });
+    const removeAddedToCart = (product) => {
+        setAddedToCart((prevState) =>({
+            ...prevState, 
+            [product.name]: false
+        }));
     };
 
    const handleContinueShopping = (e) => {
     e.preventDefault();
     setShowCart(false);
-    updateAddedToCart();
   };
 
     return (
@@ -332,7 +328,7 @@ function ProductList({ aboutUsClicked }) {
             ))}
         </div>
  ) :  (
-    <CartItem onContinueShopping={handleContinueShopping}/> 
+    <CartItem onContinueShopping={handleContinueShopping} removeAddedToCart={removeAddedToCart}/> 
 )}
     </div>
     );

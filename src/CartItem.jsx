@@ -4,7 +4,7 @@ import { removeItem, updateQuantity } from './CartSlice';
 import './CartItem.css';
 import { createImmutableStateInvariantMiddleware } from '@reduxjs/toolkit';
 
-const CartItem = ({ onContinueShopping , removedFromCart }) => {
+const CartItem = ({ onContinueShopping , removeAddedToCart }) => {
   const cart = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
 
@@ -28,6 +28,7 @@ const CartItem = ({ onContinueShopping , removedFromCart }) => {
   const handleDecrement = (item) => {
     if(item.quantity <= 1){
         dispatch(removeItem(item));
+        removeAddedToCart(item);
     }
     else{
         dispatch(updateQuantity({ name: item.name, quantity: item.quantity - 1 }));
@@ -36,6 +37,7 @@ const CartItem = ({ onContinueShopping , removedFromCart }) => {
 
   const handleRemove = (index) => {
     dispatch(removeItem(index));
+    removeAddedToCart(index);
   };
 
   // Calculate total cost based on quantity for an item
